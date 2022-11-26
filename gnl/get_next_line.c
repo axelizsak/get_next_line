@@ -6,74 +6,103 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:25:34 by aizsak            #+#    #+#             */
-/*   Updated: 2022/11/20 18:33:24 by aizsak           ###   ########.fr       */
+/*   Updated: 2022/11/26 15:20:10 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*ft_reader(int fd, char *buff, char *temp)
+char	*get_file(char *buff, int fd)
 {
-	char	*temp1;
-	int		reader;
+	char	*reader;
+	int		n;
 
-	reader = 1;
-	while (reader != -1)
+	reader = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!reader)
+		return (NULL);
+	n = 1;
+	while (n > 0)
 	{
-		reader = read(fd, buff, BUFFER_SIZE);
-		if (reader == -1)
-			return (0);
-		else if (reader == 0)
-			break;
-		buff[reader] = '\0';
-		if (!temp)
-			temp = ft_strdup("");
-		temp1 = temp;
-		temp = ft_strjoin(temp1, buff);
-		free(temp1);
-		temp1 = NULL;
-		if (ft_strchr(buff, '\n'))
-			break;
+		n = read(fd, reader, BUFFER_SIZE);
+		if (n < 0)
+		{
+			free(reader);
+			return (NULL);
+		}
+		reader[n] = '\0';
+		buff = ft_strjoin(reader, buff);
+		if (check(buff))
+			n = 0;
 	}
-	return (temp);
+	free(reader);
+	return (buff);
 }
 
-static char	*ft_get_line(char *line)
+char	*get_line(char *buff)
 {
-	size_t	i;
-	char	*temp;
+	char	*str;
+	int		i;
 
 	i = 0;
-	while (line[i] != '\n' && line[i] != '\0') 
-		i++;
-	if (line[i] == '\n' || line[i] == '\0') 
-		return (0);
-	temp = ft_substr(line, i + 1, ft_strlen(line) - i);
-	if (*temp == '\0')
+	if (buff[i] == 0)
+		return (NULL);
+	str = malloc(sizeof(char) * ft_strlen(buff) + 1);
+	if (!str)
+		return (NULL);
+	while (buff[i] && buff[i] != '\n')
 	{
-		free(temp);
-		temp = NULL;
+		str[i] = buff[i];
+		i++;
 	}
-	line[i + 1] = '\0';
-	return (temp);
+	if (buff[i] == '\n')
+	{
+		str[i] = '\n';
+		i++;
+	}
+	str[i] = 0;
+	return (str);
+}
+
+char	*trimmed_buff(char *buff)
+{
+	char		*str;
+	int			i;
+	int			j;
+	int			size;
+
+	i = 0;
+	j = 0;
+	size = ft_strlen_classic(buff) - ft_strlen(buff);
+	if (!size)
+	{
+		free(buff);
+		return (NULL);
+	}
+	str = malloc(sizeof (char) * (size + 1));
+	if (!str)
+		return (NULL);
+	i = ft_strlen(buff);
+	while (buff[i])
+		str[j++] = buff[i++];
+	str[j] = 0;
+	free(buff);
+	return (str);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line;
-	char		*buff;
-	static char	*temp;
+	static char		*buff;
+	char			*str;
 
-	if (fd < 0)
-		return (0);
-	buff = ((char *)malloc(sizeof(char) * (BUFFER_SIZE + 1)));
-		if (!buff)
-			return (NULL);
-	line = ft_reader(fd, buff, temp);
-	free(buff);
-	buff = NULL;
-	if (!line)
+	str = 0;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	temp = ft_get_line(line);
-	return (line);
+	buff = get_file(buff, fd);
+	if (!buff)
+		return (NULL);
+	str = get_line(buff);
+	buff = trimmed_buff(buff);
+	if (!str)
+		free(buff);
+	return (str);
 }
