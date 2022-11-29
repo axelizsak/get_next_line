@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 10:20:08 by aizsak            #+#    #+#             */
-/*   Updated: 2022/11/29 10:24:45 by aizsak           ###   ########.fr       */
+/*   Created: 2022/11/29 10:11:37 by aizsak            #+#    #+#             */
+/*   Updated: 2022/11/29 10:16:19 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_H
 
 # include <stdlib.h>
 # include <unistd.h>
