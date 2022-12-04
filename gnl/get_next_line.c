@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:25:34 by aizsak            #+#    #+#             */
-/*   Updated: 2022/11/29 09:50:35 by aizsak           ###   ########.fr       */
+/*   Updated: 2022/12/04 15:33:05 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,3 +106,28 @@ char	*get_next_line(int fd)
 		free(buff);
 	return (str);
 }
+
+/*
+ * #include <fcntl.h>
+#include <stdio.h>
+
+int	main(int argc, char **argv)
+{
+	int	fd;
+	char *str;
+	int i;
+
+	(void)argc;
+	fd = open(argv[1], O_RDONLY);
+	str = get_next_line(fd);
+	i = 0;
+	while (str)
+	{
+		i++;
+		printf("%6i\t%s", i, str);
+		free(str);
+		str = get_next_line(fd);
+	}
+	close (fd);
+}
+*/
