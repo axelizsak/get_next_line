@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:25:34 by aizsak            #+#    #+#             */
-/*   Updated: 2022/12/04 15:33:05 by aizsak           ###   ########.fr       */
+/*   Updated: 2022/12/10 15:57:44 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_file(char *buff, int fd)
 		reader[i] = '\0';
 		buff = ft_strjoin(reader, buff);
 		if (check(buff))
-			i = 0;
+			break;
 	}
 	free(reader);
 	return (buff);
@@ -107,10 +107,9 @@ char	*get_next_line(int fd)
 	return (str);
 }
 
-/*
- * #include <fcntl.h>
+#include <fcntl.h>
 #include <stdio.h>
-
+/*
 int	main(int argc, char **argv)
 {
 	int	fd;
@@ -131,3 +130,18 @@ int	main(int argc, char **argv)
 	close (fd);
 }
 */
+
+int     main(void)
+{
+    int fd = open("", O_RDONLY);
+    char * test = get_next_line(0);
+    while (test)
+    {
+        printf("%s", test);
+        free(test);
+        test =get_next_line(28);
+    }
+    free(test);
+    close(fd);
+    return (0);
+}

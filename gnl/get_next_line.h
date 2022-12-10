@@ -6,14 +6,14 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:20:08 by aizsak            #+#    #+#             */
-/*   Updated: 2022/11/29 10:54:36 by aizsak           ###   ########.fr       */
+/*   Updated: 2022/12/10 14:50:04 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 42
 # endif
 
 # include <stdlib.h>
