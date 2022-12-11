@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 10:07:48 by aizsak            #+#    #+#             */
-/*   Updated: 2022/11/29 10:07:52 by aizsak           ###   ########.fr       */
+/*   Created: 2022/11/19 17:25:34 by aizsak            #+#    #+#             */
+/*   Updated: 2022/12/11 10:11:02 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_file(char *buff, int fd)
 	char	*reader;
 	int		i;
 
-	reader = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	reader = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!reader)
 		return (NULL);
 	i = 1;
@@ -32,7 +32,7 @@ char	*get_file(char *buff, int fd)
 		reader[i] = '\0';
 		buff = ft_strjoin(reader, buff);
 		if (check(buff))
-			i = 0;
+			break ;
 	}
 	free(reader);
 	return (buff);
@@ -94,8 +94,7 @@ char	*get_next_line(int fd)
 	static char		*buff;
 	char			*str;
 
-	str = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
 	buff = get_file(buff, fd);
 	if (!buff)

@@ -6,7 +6,7 @@
 /*   By: aizsak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:25:34 by aizsak            #+#    #+#             */
-/*   Updated: 2022/12/10 15:57:44 by aizsak           ###   ########.fr       */
+/*   Updated: 2022/12/11 10:10:37 by aizsak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_file(char *buff, int fd)
 	char	*reader;
 	int		i;
 
-	reader = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	reader = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!reader)
 		return (NULL);
 	i = 1;
@@ -32,7 +32,7 @@ char	*get_file(char *buff, int fd)
 		reader[i] = '\0';
 		buff = ft_strjoin(reader, buff);
 		if (check(buff))
-			break;
+			break ;
 	}
 	free(reader);
 	return (buff);
@@ -94,8 +94,7 @@ char	*get_next_line(int fd)
 	static char		*buff;
 	char			*str;
 
-	str = 0;
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
 	buff = get_file(buff, fd);
 	if (!buff)
@@ -105,43 +104,4 @@ char	*get_next_line(int fd)
 	if (!str)
 		free(buff);
 	return (str);
-}
-
-#include <fcntl.h>
-#include <stdio.h>
-/*
-int	main(int argc, char **argv)
-{
-	int	fd;
-	char *str;
-	int i;
-
-	(void)argc;
-	fd = open(argv[1], O_RDONLY);
-	str = get_next_line(fd);
-	i = 0;
-	while (str)
-	{
-		i++;
-		printf("%6i\t%s", i, str);
-		free(str);
-		str = get_next_line(fd);
-	}
-	close (fd);
-}
-*/
-
-int     main(void)
-{
-    int fd = open("", O_RDONLY);
-    char * test = get_next_line(0);
-    while (test)
-    {
-        printf("%s", test);
-        free(test);
-        test =get_next_line(28);
-    }
-    free(test);
-    close(fd);
-    return (0);
 }
